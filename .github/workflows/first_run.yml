@@ -1,0 +1,27 @@
+name: 我的第一个自动化工作流 # 工作流的名字
+
+# 1. Trigger (触发器)：什么时候跑？
+on: [push]  # 只要有代码 push 上来，就自动运行
+
+# 2. Jobs (任务)：跑什么？
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest  # 指定运行环境（GitHub 免费提供的 Ubuntu 虚拟机）
+
+    # 3. Steps (步骤)：具体怎么跑？
+    steps:
+    # 第一步：把你的代码从仓库里拉取下来
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 第二步：安装 Python 环境
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    # 第三步：运行你的脚本
+    - name: Run my script
+      run: |
+        python main.py
+        echo "任务完成！"
